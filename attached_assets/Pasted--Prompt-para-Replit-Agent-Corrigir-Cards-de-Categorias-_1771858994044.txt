@@ -1,0 +1,122 @@
+# Prompt para Replit Agent — Corrigir Cards de Categorias e Subcategorias
+
+> Cole este prompt no Replit Agent
+
+---
+
+```
+Preciso corrigir o visual dos cards na tela "Categorias" do sistema. Tanto os cards de CATEGORIA quanto os de SUBCATEGORIA estão ruins. Vou descrever exatamente como cada um deve ficar. Mantenha o mesmo design system do projeto (cores, fontes, sidebar, header, filtros — só mudar os cards).
+
+## CARD DE CATEGORIA (quando filtro "Categorias" está ativo)
+
+Layout HORIZONTAL (estilo lista), cada card ocupa uma linha do grid:
+
+┌─────────────────────────────────────────────────────────────────┐
+│  🧱  Cimentos e Argamassas      120 produtos • 4 sub     ⋯   │
+│       cimentos-e-argamassas          ● Ativa                   │
+└─────────────────────────────────────────────────────────────────┘
+
+Estrutura técnica do card:
+- Fundo branco, border-radius 12px, border 1px solid #eee
+- Hover: translateY(-3px) + box-shadow 0 8px 24px rgba(0,0,0,0.1)
+- Display flex, align-items center, gap 14px, padding 16px 18px
+- Grid: 2 colunas por linha em desktop (min 340px), 1 coluna em mobile
+
+Elementos da esquerda para direita:
+1. **Emoji** — fontSize 36px, sem fundo, sem container, sem borda. Apenas o emoji direto
+2. **Bloco de texto** (flex 1, min-width 0):
+   - Nome: font-size 14px, font-weight 700, color #1a1a2e, truncar com ellipsis se longo
+   - Slug: font-size 11px, color #b0b0b0, font-family monospace
+3. **Bloco direito** (flex-shrink 0, alinhar à direita):
+   - Linha 1: "120 produtos • 4 sub" em font-size 11px, color #888
+   - Linha 2: dot verde (8px) + "Ativa" em font-size 10px, color #22c55e (ou dot cinza + "Inativa" se inativa)
+4. **Botão menu** — "⋯" em color #ccc, sem background
+
+O que REMOVER dos cards de categoria atuais:
+- Remover o badge "CATEGORIA" no topo (é redundante, o filtro já diz que são categorias)
+- Remover qualquer fundo colorido nos ícones
+- Remover qualquer fundo colorido no card
+- Remover o campo "Categoria Pai" que aparece nos cards de categoria (categorias não têm pai)
+
+## CARD DE SUBCATEGORIA (quando filtro "Subcategorias" está ativo)
+
+Layout HORIZONTAL igual ao de categoria, mas com a informação da categoria pai:
+
+┌─────────────────────────────────────────────────────────────────┐
+│  🧱  Cimentos                   30 produtos                ⋯  │
+│       🧱 Cimentos e Argamassas       ● Ativa                   │
+└─────────────────────────────────────────────────────────────────┘
+
+Estrutura técnica do card:
+- Mesma estrutura base do card de categoria (branco, radius, hover)
+- Grid: 2 colunas desktop (min 340px), 1 coluna mobile
+
+Elementos da esquerda para direita:
+1. **Emoji** — herdar o emoji da categoria pai. fontSize 36px, sem fundo, direto
+2. **Bloco de texto** (flex 1):
+   - Nome da subcategoria: font-size 14px, font-weight 700, color #1a1a2e
+   - Categoria pai: emoji pequeno (12px) + nome da categoria pai em font-size 11px, color #999
+     Exemplo: "🧱 Cimentos e Argamassas" em texto cinza claro
+     Este texto funciona como breadcrumb visual
+3. **Bloco direito**:
+   - "30 produtos" em font-size 11px, color #888
+   - Dot + status
+4. **Botão menu** — "⋯"
+
+O que REMOVER dos cards de subcategoria atuais:
+- Remover o badge "SUBCATEGORIA" no topo (redundante)
+- Remover o campo cinza "Categoria Pai" que aparece como bloco separado (trocar pelo breadcrumb inline descrito acima)
+- Remover qualquer fundo colorido
+
+## CARD QUANDO FILTRO "TODAS" ESTÁ ATIVO
+
+Quando mostra categorias E subcategorias juntas:
+- Cards de categoria: exibir normalmente como descrito acima
+- Cards de subcategoria: exibir normalmente como descrito acima
+- Diferenciar visualmente apenas pelo breadcrumb da categoria pai (subcategorias têm, categorias não)
+- NÃO usar badges "CATEGORIA" / "SUBCATEGORIA" — a diferença visual já é clara pelo breadcrumb
+
+## AJUSTES GERAIS NA TELA
+
+### Grid de Cards:
+- Usar grid com: grid-template-columns: repeat(auto-fill, minmax(340px, 1fr))
+- Gap: 12px
+- Isso cria cards horizontais em 2 colunas no desktop, 1 no mobile
+
+### Filtros (manter como estão):
+- Busca, Todas/Ativas/Inativas, Todas/Categorias/Subcategorias, toggle lista/grid
+- Contador: "16 categorias encontradas" ou "74 subcategorias encontradas"
+
+### View de Lista (ícone ≡):
+Quando o toggle de lista está ativo (não grid), mostrar como tabela:
+- Colunas: Ícone | Nome | Slug | Tipo | Produtos | Status | Ações
+- Tipo: texto simples "Categoria" ou "Subcategoria" (sem badge colorido)
+- Para subcategorias, mostrar nome da categoria pai na coluna Nome como texto menor abaixo
+
+### Menu de ações (⋯) ao clicar:
+- Editar
+- Duplicar
+- Ver produtos
+- Ativar / Desativar
+- Excluir
+
+## RESUMO DO QUE MUDAR
+
+| Elemento | Antes (ruim) | Depois (bom) |
+|----------|-------------|--------------|
+| Badge "CATEGORIA"/"SUBCATEGORIA" | Aparece no topo de todo card | REMOVER — redundante |
+| Ícone da categoria | Com fundo colorido circular | Emoji direto, sem fundo, 36px |
+| Campo "Categoria Pai" na subcategoria | Bloco cinza separado sem mostrar o nome | Breadcrumb inline: "🧱 Cimentos e Argamassas" em texto 11px cinza |
+| Campo "Categoria Pai" na categoria | Aparece vazio | REMOVER — categoria não tem pai |
+| Layout do card | Grid 4 colunas vertical com muito espaço vazio | Horizontal 2 colunas estilo lista, compacto |
+| Cores de fundo no card | Fundo no ícone | Sem fundo, card branco limpo |
+| Slug | Não aparece em subcategoria | Substituído pelo breadcrumb da categoria pai |
+| Info de produtos/sub | Badges separados no rodapé | Texto inline "120 produtos • 4 sub" |
+
+## IMPORTANTE
+- NÃO adicionar cores de fundo nos ícones
+- NÃO adicionar cores de fundo nos cards
+- Cards devem ser BRANCOS e limpos
+- Manter sidebar, header, filtros e todo o resto da tela IGUAIS
+- Só mudar a estrutura/layout dos cards
+```

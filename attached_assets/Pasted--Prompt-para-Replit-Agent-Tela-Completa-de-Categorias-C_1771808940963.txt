@@ -1,0 +1,214 @@
+# Prompt para Replit Agent — Tela Completa de Categorias
+
+> Cole este prompt no Replit Agent
+
+---
+
+```
+Crie uma nova tela/página dedicada para "Gestão de Categorias" no sistema. Adicione um novo item no menu lateral (sidebar) com ícone de tags/etiquetas, posicionado ACIMA do item "Catálogo de Produtos". Mantenha exatamente o mesmo design system do projeto (cores, fontes, sidebar, espaçamentos, bordas arredondadas).
+
+## 1. HEADER DA PÁGINA
+
+- Título: "Categorias"
+- Subtítulo: "Gerencie as categorias e subcategorias dos produtos."
+- Botão direito superior: "+ Nova Categoria" (estilo igual ao botão "Cadastrar Produto" que já existe — fundo azul escuro, texto branco)
+- Botão secundário ao lado: "Exportar" (mesmo estilo do exportar que já existe na tela de produtos)
+
+## 2. BARRA DE FILTROS E BUSCA
+
+Abaixo do header, barra horizontal com:
+- Campo de busca com ícone de lupa: "Buscar categoria..."
+- Filtro por status: chips/botões "Todas" | "Ativas" | "Inativas"
+- Filtro por nível: chips "Raiz" | "Subcategorias"
+- Contador de resultados à direita: "12 categorias encontradas"
+
+## 3. LISTAGEM — TABELA DE CATEGORIAS
+
+Tabela com visual clean e arredondado (mesmo padrão do sistema):
+
+Colunas:
+| Ícone | Nome | Subcategorias | Produtos | Status | Ordem | Ações |
+
+Detalhes de cada coluna:
+
+- **Ícone**: emoji da categoria exibido dentro de um círculo com fundo suave colorido (40x40px)
+- **Nome**: nome da categoria em negrito + slug abaixo em texto menor cinza (ex: "cimentos-e-argamassas"). Se for subcategoria, exibir indent com linha vertical + nome da categoria pai em badge pequeno acima
+- **Subcategorias**: número de subcategorias diretas (ex: "3 subcategorias" ou "—" se nenhuma)
+- **Produtos**: número de produtos vinculados (ex: "24 produtos"). Se zero, exibir "Nenhum" em cinza
+- **Status**: badge "Ativa" (verde) ou "Inativa" (cinza). Se inativa e tiver produtos ativos, mostrar ícone de alerta amarelo com tooltip "Categoria inativa com X produtos ativos"
+- **Ordem**: número da ordem de exibição com botões seta ↑ ↓ para reordenar inline (atualizar no banco ao clicar)
+- **Ações**: menu de 3 pontos (⋯) com opções:
+  - Editar
+  - Duplicar
+  - Ver produtos desta categoria (link para catálogo filtrado)
+  - Desativar / Ativar (toggle)
+  - Excluir (com confirmação: "Tem certeza? Esta categoria tem X produtos vinculados.")
+
+Comportamento da tabela:
+- Linhas com hover sutil (fundo levemente acinzentado)
+- Subcategorias aparecem indentadas abaixo da categoria pai com visual hierárquico (linha vertical conectora)
+- Botão de expandir/colapsar nas categorias que têm subcategorias (chevron ►/▼)
+- Paginação no rodapé: 20 itens por página
+- Se nenhuma categoria cadastrada, exibir empty state com ícone, texto "Nenhuma categoria cadastrada ainda" e botão "+ Criar primeira categoria"
+
+## 4. FORMULÁRIO DE CATEGORIA (modal grande ou drawer lateral direito)
+
+Ao clicar em "+ Nova Categoria" ou "Editar", abrir formulário com:
+
+### Campo 1 — Nome da Categoria
+- Input texto, obrigatório, máx 80 caracteres
+- Placeholder: "Ex: Cimentos e Argamassas"
+- Contador de caracteres: "0/80"
+- Ao digitar, gerar slug automaticamente no campo abaixo
+
+### Campo 2 — Slug
+- Input texto, gerado automaticamente do nome
+- Editável manualmente (com ícone de cadeado/editar para desbloquear edição)
+- Formato: lowercase, sem acentos, hifens no lugar de espaços
+- Validação: único no banco. Verificar em tempo real e mostrar ✓ disponível ou ✗ já existe
+
+### Campo 3 — Ícone da Categoria
+- Label: "Escolha um ícone"
+- Grid visual com MUITOS ícones organizados por seção:
+
+  **Construção Civil:**
+  🧱 🏗️ 🔨 🪓 🪚 🔩 🪛 🪵 🧲 🪜 🛠️ 🔧 🪤 ⛏️ 🏠 🏢
+
+  **Elétrica e Iluminação:**
+  💡 ⚡ 🔌 🔋 💠 🕯️ 🔦 ✨
+
+  **Hidráulica e Água:**
+  🚿 🚰 💧 🪠 🛁 🏊 💦 🌊
+
+  **Pintura e Acabamento:**
+  🎨 🖌️ 🪣 🖼️ 🌈 🎭 ✏️ 🖍️
+
+  **Jardim e Externo:**
+  🌿 🌱 🪴 🌳 🏡 🪨 🌻 🍃
+
+  **Segurança e EPI:**
+  🦺 🥽 🧤 ⛑️ 🔒 🛡️ 🚧 🔐
+
+  **Ferramentas Manuais:**
+  🔨 🪛 🔧 🗜️ 📐 📏 🪚 ✂️
+
+  **Transporte e Logística:**
+  🚚 📦 🏷️ 🛒 📋 🗃️ 🧾 📊
+
+  **Geral:**
+  ⭐ 🏆 💎 🎯 🔥 ❄️ ♻️ 🌍
+
+- Cada ícone em botão 48x48 com hover e borda ao selecionar
+- Campo de busca acima do grid: "Buscar ícone..." (filtra por nome/tag)
+- Ícone selecionado exibido em destaque grande (64px) ao lado do campo nome como preview
+
+### Campo 4 — Imagem de Capa (opcional)
+- Área de upload com drag & drop
+- Aceitar: JPG, PNG, WebP, máx 2MB
+- Placeholder visual: área tracejada com ícone de upload e texto "Arraste uma imagem ou clique para selecionar"
+- Preview da imagem após upload (com botão X para remover)
+- Dimensão recomendada: "Recomendado: 800×400px"
+
+### Campo 5 — Descrição
+- Textarea, opcional, máx 300 caracteres
+- Placeholder: "Descreva brevemente esta categoria para exibição na loja"
+- Contador de caracteres restantes: "300/300" que vai diminuindo e fica vermelho abaixo de 20
+
+### Campo 6 — Categoria Pai
+- Select/dropdown com busca
+- Opção padrão: "Nenhuma (categoria raiz)"
+- Listar categorias ativas com ícone + nome
+- Não permitir selecionar a si mesma ao editar
+- Não permitir loops (A pai de B, B pai de A)
+- Visual com indent para mostrar níveis: "🧱 Materiais" / "  └ Cimentos" / "  └ Argamassas"
+
+### Campo 7 — Cor da Categoria (opcional)
+- Seletor de cor com presets:
+  Paleta de 12 cores pré-definidas em círculos clicáveis:
+  Vermelho, Laranja, Amarelo, Verde Claro, Verde Escuro, Ciano, Azul Claro, Azul Escuro, Roxo, Rosa, Marrom, Cinza
+- A cor selecionada será usada como fundo sutil do ícone na listagem e na loja
+- Preview em tempo real do ícone com a cor de fundo aplicada
+
+### Campo 8 — Ordem de Exibição
+- Input numérico com botões +/−
+- Padrão: 0
+- Tooltip: "Menor número = aparece primeiro na loja"
+
+### Campo 9 — Status
+- Toggle switch grande e claro
+- Label: "Categoria ativa" / "Categoria inativa"
+- Se estiver desativando e tiver subcategorias, mostrar alerta inline:
+  "⚠️ Esta categoria tem 3 subcategorias que também ficarão ocultas na loja."
+- Se estiver desativando e tiver produtos, mostrar alerta:
+  "⚠️ Os 24 produtos vinculados não aparecerão na loja."
+
+### Preview em tempo real:
+No topo ou lateral do formulário, exibir card de preview mostrando como a categoria vai aparecer na loja:
+- Círculo com ícone + cor de fundo
+- Nome da categoria
+- Descrição (se preenchida)
+- Badge de status
+Atualizar em tempo real conforme o usuário preenche os campos.
+
+### Rodapé do formulário:
+- Botão "Cancelar" (secundário, borda)
+- Botão "Salvar Categoria" (primário, azul escuro)
+- Se editando: botão "Excluir" (vermelho, com confirmação)
+- Botão "Salvar" desabilitado até campos obrigatórios preenchidos
+- Loading spinner no botão durante salvamento
+
+## 5. CARDS VIEW (alternativa à tabela)
+
+Adicionar toggle no canto superior da listagem para alternar entre:
+- 📋 Visualização em Tabela (padrão)
+- 🔲 Visualização em Cards
+
+Na view de Cards:
+- Grid responsivo: 4 colunas desktop, 2 tablet, 1 mobile
+- Cada card mostra:
+  - Imagem de capa no topo (ou fundo com cor + ícone grande se não tiver imagem)
+  - Ícone da categoria (sobreposto no canto do card com fundo circular colorido)
+  - Nome da categoria em negrito
+  - Descrição truncada (2 linhas máx)
+  - Badges: "24 produtos" | "3 subcategorias"
+  - Status: dot verde/cinza
+  - Menu de ações (⋯) no canto superior direito
+- Cards com hover: leve elevação (shadow) e escala sutil
+
+## 6. REGRAS DE NEGÓCIO
+
+- Nome deve ser único por nível hierárquico (duas categorias raiz não podem ter o mesmo nome, mas uma subcategoria pode repetir nome de outra categoria raiz)
+- Slug deve ser único globalmente
+- Ao excluir categoria com produtos vinculados: NÃO permitir exclusão. Exibir erro: "Remova ou mova os X produtos antes de excluir."
+- Ao excluir categoria com subcategorias: exigir confirmação extra: "As subcategorias também serão excluídas. Continuar?"
+- Ao reordenar (botões ↑↓ ou drag), atualizar o campo sort_order no banco imediatamente
+- Exportar: gerar CSV com colunas: Nome, Slug, Ícone, Categoria Pai, Qtd Produtos, Status, Ordem
+
+## 7. TABELA NO BANCO DE DADOS
+
+Se a tabela de categorias ainda não existir, criar com esta estrutura:
+
+- id: uuid (PK, auto-gerado)
+- name: texto (not null)
+- slug: texto (not null, unique)
+- icon: texto (emoji, default '📦')
+- color: texto (hex color, nullable, ex: '#FF6B35')
+- image_url: texto (nullable)
+- description: texto (nullable, max 300)
+- parent_id: uuid (nullable, FK → categories.id)
+- sort_order: integer (default 0)
+- is_active: boolean (default true)
+- created_at: timestamp (default now)
+- updated_at: timestamp (default now)
+
+Se a tabela já existir, fazer ALTER TABLE para adicionar colunas que estiverem faltando (como color, image_url, etc.) sem perder dados existentes.
+
+## 8. UX FINAL
+
+- Toast de sucesso: "Categoria criada com sucesso!" / "Categoria atualizada!"
+- Toast de erro com mensagem específica
+- Transições suaves ao abrir/fechar modal ou drawer
+- Loading skeleton na tabela enquanto carrega dados
+- Responsivo em todas as telas
+- Manter consistência total com o design system existente do projeto
+```

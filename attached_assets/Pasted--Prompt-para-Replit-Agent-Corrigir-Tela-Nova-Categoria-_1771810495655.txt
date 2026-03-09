@@ -1,0 +1,112 @@
+# Prompt para Replit Agent — Corrigir Tela "Nova Categoria"
+
+> Cole este prompt no Replit Agent
+
+---
+
+```
+Preciso corrigir a tela "Nova Categoria" do sistema. A tela atual está confusa: tem um campo "Categoria Pai (Opcional)" com dropdown "Nenhuma (Categoria Principal)" que ninguém entende. Preciso deixar claro e intuitivo a diferença entre criar uma CATEGORIA e criar uma SUBCATEGORIA.
+
+## O QUE MUDAR:
+
+### 1. Header
+- Trocar subtítulo "Configuração de dados, ícones e hierarquia" por "Cadastre as categorias e subcategorias dos seus produtos"
+
+### 2. PRIMEIRO CAMPO DO FORMULÁRIO — Tipo (NOVO, adicionar ANTES de tudo)
+- Label: "O que você está criando?"
+- Dois botões grandes lado a lado (tipo card selecionável):
+
+  **Botão 1:**
+  Ícone: 📁 (grande)
+  Título: "Categoria"
+  Descrição: "Grupo principal de produtos (ex: Tintas e Pintura)"
+
+  **Botão 2:**
+  Ícone: 📂 (grande)
+  Título: "Subcategoria"
+  Descrição: "Divisão dentro de uma categoria (ex: Tintas → Tinta Acrílica)"
+
+- Padrão: "Categoria" selecionado
+- Visual: o selecionado tem borda azul escura (cor primária do sistema) e fundo suave. O não selecionado tem borda cinza clara
+- Ao trocar a seleção, o formulário abaixo se adapta com transição suave
+
+### 3. QUANDO "CATEGORIA" SELECIONADA — formulário mostra:
+
+- Nome da Categoria * (manter como está, com slug ao lado e contador 0/80)
+- Slug (URL) (manter como está, gerado automaticamente)
+- Ícone (manter o grid que já existe com busca e seções)
+- Descrição (textarea, opcional, máx 300 chars, com contador de caracteres)
+- Cor da Categoria (NOVO — adicionar paleta de 12 cores em círculos clicáveis):
+  Marrom #8B7355, Terracota #A0522D, Bege #B8A88A, Cinza #708090, Laranja #FF6B35, Azul #4A90D9, Amarelo #F5A623, Verde Oliva #6B8E23, Dourado #CD853F, Madeira #DEB887, Azul Aço #4682B4, Vermelho #FF4444, Grafite #555555, Cobre #CC7722, Verde #2E8B57, Roxo #9370DB
+  A cor selecionada aplica como fundo suave atrás do ícone no preview
+- Ordem de Exibição (input numérico, padrão 0)
+- Status (toggle ativo/inativo)
+
+- NÃO mostrar campo "Categoria Pai" neste modo
+- NÃO mostrar dropdown "Nenhuma (Categoria Principal)"
+
+### 4. QUANDO "SUBCATEGORIA" SELECIONADA — formulário mostra:
+
+- Pertence à Categoria * (NOVO campo — substituir o antigo "Categoria Pai")
+  - Dropdown obrigatório (não opcional como antes!)
+  - Label: "Pertence à Categoria *" com asterisco vermelho
+  - Placeholder: "Selecione a categoria principal"
+  - Listar APENAS categorias ativas (não subcategorias) com ícone + nome
+  - Se não tiver nenhuma categoria cadastrada, exibir alerta inline:
+    "⚠️ Cadastre uma categoria primeiro antes de criar subcategorias."
+    E desabilitar o botão Salvar
+  - Visual: dropdown com ícone colorido de cada categoria na lista
+
+- Nome da Subcategoria * (mesmo campo de nome, mas label muda para "Nome da Subcategoria *")
+  - Placeholder muda para: "Ex: Tinta Acrílica"
+- Slug (URL) (manter)
+- Ícone (manter grid — mas este campo é OPCIONAL para subcategoria, herda o ícone da categoria pai se não escolher)
+- Descrição (opcional)
+- Ordem de Exibição (input numérico)
+- Status (toggle)
+
+- NÃO mostrar campo "Cor da Categoria" para subcategoria (herda da categoria pai)
+
+### 5. PREVIEW EM TEMPO REAL (já existe, melhorar)
+
+Quando modo CATEGORIA:
+- Mostrar: [ícone com cor de fundo] + Nome da Categoria + slug
+- Igual ao que já existe mas aplicando a cor selecionada no fundo do ícone
+
+Quando modo SUBCATEGORIA:
+- Mostrar: [ícone da categoria pai] Categoria Pai > [ícone] Nome da Subcategoria
+- Formato breadcrumb visual para ficar claro a hierarquia
+- Ex: "🎨 Tintas e Pintura > 🪣 Tinta Acrílica"
+
+### 6. REMOVER DO CÓDIGO:
+- Remover o campo "Categoria Pai (Opcional)" antigo
+- Remover o dropdown "Nenhuma (Categoria Principal)"
+- Remover o texto de ajuda "Selecione uma categoria pai apenas se esta for uma subcategoria..."
+
+### 7. AJUSTAR TABELA NO BANCO DE DADOS:
+- Manter a coluna parent_id na tabela categories (ela é necessária para subcategorias)
+- Quando tipo = "Categoria": salvar parent_id como NULL
+- Quando tipo = "Subcategoria": salvar parent_id com o id da categoria selecionada
+- Adicionar coluna "color" (text, nullable) se não existir — para a cor da categoria
+
+### 8. AJUSTAR LISTAGEM DE CATEGORIAS:
+Na página de listagem/tabela de categorias:
+- Agrupar visualmente: mostrar categoria principal e abaixo suas subcategorias com indent
+- Categoria principal: linha normal com ícone colorido
+- Subcategoria: linha indentada com "└" ou linha conectora visual, texto um pouco menor
+- Botão de expandir/colapsar (▶/▼) nas categorias que têm subcategorias
+- Coluna "Tipo": badge "Categoria" (azul) ou "Subcategoria" (cinza)
+- Ao excluir categoria que tem subcategorias: modal "Esta categoria tem X subcategorias. Excluir tudo?"
+- Ao desativar categoria: aviso "As subcategorias também ficarão inativas na loja"
+
+### 9. BOTÕES DO FORMULÁRIO (manter):
+- "Cancelar" — volta para listagem
+- "Salvar Categoria" ou "Salvar Subcategoria" (texto do botão muda conforme o tipo selecionado)
+
+### 10. UX:
+- Manter exatamente o mesmo design system (cores, fontes, bordas, sidebar)
+- Transição suave ao trocar entre Categoria/Subcategoria
+- Toast de sucesso: "Categoria criada com sucesso!" / "Subcategoria criada com sucesso!"
+- Após salvar, redirecionar para listagem
+- O campo "Pertence à Categoria" deve ser o PRIMEIRO campo visível quando Subcategoria está selecionado (logo abaixo dos botões de tipo), para deixar claro que precisa escolher a categoria pai antes de qualquer coisa
+```

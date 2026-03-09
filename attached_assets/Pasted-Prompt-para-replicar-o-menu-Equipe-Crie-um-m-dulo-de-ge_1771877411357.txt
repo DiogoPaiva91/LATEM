@@ -1,0 +1,92 @@
+Prompt para replicar o menu "Equipe"
+Crie um módulo de gestão de equipe com as seguintes partes:
+
+1. Página de Controle da Equipe (team-control.tsx)
+Cards de estatísticas no topo:
+
+Membros Ativos (ícone verde)
+Membros Inativos (ícone vermelho)
+Nunca Acessaram (ícone laranja)
+Links de Convite ativos (ícone azul)
+Sistema de abas (Tabs) com 3 seções:
+
+Aba "Membros":
+
+Filtros: Data de admissão (range com 2 inputs date), busca por nome/email, busca por cargo, select de status (Todos/Ativo/Inativo). Filtragem feita no frontend com useMemo.
+Tabela com colunas: Membro (avatar + nome + email), Cargo, WhatsApp, Data Admissão, Último Acesso (ou badge "Nunca acessou"), Status (badges: Ativo verde, Inativo cinza, Pendente amarelo).
+Ações por linha: Enviar credenciais via WhatsApp, Editar (link para form), Copiar WhatsApp, Desativar (com confirmação).
+Paginação: Select de itens por página (5/10/25/50), botões anterior/próximo, texto "pág. X-Y de Z".
+Botão "Adicionar" no header que leva à página de cadastro. Se limite de usuários atingido, botão fica desabilitado.
+Aba "Links de Convite":
+
+Tabela com colunas: Cargo, Link, Usos, Expira em, Criado em, Ações (copiar/remover).
+Botão "Novo Link" abre um Dialog/Modal com: Select de cargo (Supervisor/Consultor), input de máximo de usos (opcional), botões Cancelar/Criar Link.
+Ação de remover link com AlertDialog de confirmação.
+Aba "Histórico de Credenciais":
+
+Tabela com colunas: Destinatário (nome + email), Telefone, Status (badges: Na fila, Enviando, Enviado, Entregue, Acessado, Falhou, Não enviado), Enviado em, Acessado em.
+Linhas expansíveis (clique para expandir) mostrando detalhes: Criado em, Entregue em, mensagem de erro.
+Modal de Credenciais (azul gradient):
+
+Aparece após enviar/reenviar credenciais.
+Mostra: Link de acesso, Email, Senha temporária.
+Botões: "Copiar Tudo" e "Fechar".
+Texto de segurança: "credenciais aparecerão apenas uma vez".
+2. Formulário de Cadastro/Edição (team-member-form.tsx)
+Formulário unificado (mesmo componente para criar e editar, diferenciado por presença de id na URL).
+
+Schema Zod:
+
+nomeCompleto (obrigatório), dataAdmissao (obrigatório), status (boolean), cargo (obrigatório),
+email (email válido obrigatório), whatsapp (obrigatório), endereco (opcional),
+observacao (opcional), matricula (opcional), sendCredentialsViaWhatsApp (boolean, default true)
+Campos do formulário (grid 4 colunas responsivo):
+
+Linha 1: Nome Completo (ícone User), Cargo (ícone Briefcase), WhatsApp (ícone Phone), Data Admissão (ícone Calendar)
+Linha 2: Matrícula (ícone Hash), E-mail (ícone Mail), Status (Switch Ativo/Inativo)
+Linha 3: Endereço (ícone MapPin)
+Linha 4: Observação (Textarea, ícone FileText)
+Upload de foto de perfil no topo com ícone de câmera.
+
+Checkbox (só no modo criar): "Enviar credenciais via WhatsApp" com fundo verde.
+
+Botões: Cancelar (outline) e Adicionar/Salvar (verde para criar, azul para editar).
+
+Modal de Credenciais pós-cadastro (azul gradient): mostra link de acesso, email e senha temporária com botão "Copiar Tudo".
+
+Modo edição: carrega dados via GET, preenche form com form.reset(), PATCH para salvar.
+
+3. Rotas
+/equipe → TeamControl (listagem)
+/equipe/cadastrar → TeamMemberForm (criar)
+/equipe/editar/:id → TeamMemberForm (editar)
+4. API Endpoints esperados
+GET    /api/team/members          → lista membros
+GET    /api/team/members/:id      → detalhe membro
+POST   /api/team/members          → criar membro
+PATCH  /api/team/members/:id      → atualizar membro
+DELETE /api/team/members/:id      → desativar membro
+POST   /api/team/members/:id/send-credentials → enviar credenciais
+GET    /api/team/invites          → listar convites
+POST   /api/team/invites          → criar convite
+DELETE /api/team/invites/:id      → remover convite
+GET    /api/team/credential-history → histórico de envios
+GET    /api/subscription/usage    → limites do plano
+5. Stack/Dependências
+React + TypeScript
+shadcn/ui (Card, Table, Badge, Button, Avatar, Input, Select, Tabs, Dialog, AlertDialog, Switch, Checkbox, Form, Textarea, Skeleton)
+lucide-react para ícones
+@tanstack/react-query (useQuery, useMutation, queryClient.invalidateQueries)
+react-hook-form + zodResolver
+date-fns + ptBR locale
+wouter (Link, useLocation, useParams)
+Esse é o prompt completo que descreve toda a funcionalidade do menu Equipe sem o campo Perfil. Quer que eu ajuste algum detalhe ou adicione mais informações?
+
+Perfeito, o prompt completo já foi entregue na mensagem anterior. Ele cobre todas as partes do módulo Equipe:
+
+Página de controle com cards de estatísticas, filtros, tabela com paginação, abas de convites e histórico
+Modal de geração de link de acesso com seleção de cargo e limite de usos
+Modal de credenciais (gradient azul) com link, email e senha temporária
+Formulário de cadastro/edição com todos os campos, upload de foto, e checkbox de envio via WhatsApp
+Endpoints de API esperados
+Stack e dependências utilizadas

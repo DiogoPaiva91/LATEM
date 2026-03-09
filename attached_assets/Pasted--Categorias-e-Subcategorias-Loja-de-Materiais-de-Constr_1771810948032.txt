@@ -1,0 +1,166 @@
+# Categorias e Subcategorias — Loja de Materiais de Construção (Resumido)
+
+---
+
+## 🧱 1. Cimentos e Argamassas
+| Subcategoria |
+|---|
+| Cimentos |
+| Argamassas |
+| Rejuntes |
+| Concreto Pronto |
+
+## 🏗️ 2. Blocos e Tijolos
+| Subcategoria |
+|---|
+| Blocos de Concreto |
+| Tijolos Cerâmicos |
+| Blocos de Vidro |
+| Lajes Pré-Moldadas |
+
+## 🪨 3. Areia, Pedra e Agregados
+| Subcategoria |
+|---|
+| Areia |
+| Pedra Brita |
+| Pedrisco e Cascalho |
+| Pedra Decorativa |
+
+## 🔩 4. Aço e Ferragens
+| Subcategoria |
+|---|
+| Vergalhões |
+| Telas e Arames |
+| Pregos |
+| Parafusos e Fixadores |
+| Perfis Metálicos |
+
+## 🎨 5. Tintas e Pintura
+| Subcategoria |
+|---|
+| Tintas |
+| Massa e Selador |
+| Textura e Grafiato |
+| Verniz |
+| Acessórios de Pintura |
+
+## 🚿 6. Hidráulica
+| Subcategoria |
+|---|
+| Tubos e Conexões |
+| Registros e Válvulas |
+| Caixas D'água |
+| Torneiras e Misturadores |
+| Vasos e Pias |
+| Ralos e Sifões |
+
+## ⚡ 7. Elétrica
+| Subcategoria |
+|---|
+| Fios e Cabos |
+| Disjuntores e Quadros |
+| Tomadas e Interruptores |
+| Eletrodutos e Conduítes |
+| Lâmpadas e Luminárias |
+
+## 🪟 8. Portas, Janelas e Esquadrias
+| Subcategoria |
+|---|
+| Portas |
+| Janelas |
+| Fechaduras e Dobradiças |
+| Vidros |
+
+## 🏠 9. Pisos e Revestimentos
+| Subcategoria |
+|---|
+| Porcelanato |
+| Cerâmica e Azulejo |
+| Piso Laminado e Vinílico |
+| Pedras Naturais |
+| Rodapés e Soleiras |
+
+## 🪵 10. Madeiras
+| Subcategoria |
+|---|
+| Tábuas e Vigas |
+| Compensado e MDF |
+| Forro |
+| Deck |
+
+## 🛡️ 11. Impermeabilização
+| Subcategoria |
+|---|
+| Mantas Asfálticas |
+| Impermeabilizantes Líquidos |
+| Silicones e Selantes |
+| Lonas |
+
+## 🦺 12. Segurança e EPI
+| Subcategoria |
+|---|
+| Capacetes |
+| Luvas |
+| Óculos e Máscaras |
+| Calçados |
+| Sinalização |
+
+## 🔧 13. Ferramentas
+| Subcategoria |
+|---|
+| Ferramentas Manuais |
+| Ferramentas Elétricas |
+| Ferramentas de Pedreiro |
+| Escadas |
+| Carrinhos e Transporte |
+
+## 🏡 14. Cobertura e Telhas
+| Subcategoria |
+|---|
+| Telhas Cerâmicas |
+| Telhas de Fibrocimento |
+| Telhas Metálicas |
+| Telhas de Policarbonato |
+| Calhas e Rufos |
+
+## 🌿 15. Jardim e Área Externa
+| Subcategoria |
+|---|
+| Grama e Adubo |
+| Mangueiras e Irrigação |
+| Pisos Externos |
+| Cercas e Telas |
+| Iluminação Externa |
+
+## 📦 16. Utilidades e Consumíveis
+| Subcategoria |
+|---|
+| Colas e Adesivos |
+| Fitas |
+| Lixas |
+| Cordas e Arames |
+
+---
+
+## RESUMO
+
+| # | Categoria | Ícone | Cor | Subcategorias |
+|---|---|---|---|---|
+| 1 | Cimentos e Argamassas | 🧱 | #8B7355 | 4 |
+| 2 | Blocos e Tijolos | 🏗️ | #A0522D | 4 |
+| 3 | Areia, Pedra e Agregados | 🪨 | #B8A88A | 4 |
+| 4 | Aço e Ferragens | 🔩 | #708090 | 5 |
+| 5 | Tintas e Pintura | 🎨 | #FF6B35 | 5 |
+| 6 | Hidráulica | 🚿 | #4A90D9 | 6 |
+| 7 | Elétrica | ⚡ | #F5A623 | 5 |
+| 8 | Portas, Janelas e Esquadrias | 🪟 | #6B8E23 | 4 |
+| 9 | Pisos e Revestimentos | 🏠 | #CD853F | 5 |
+| 10 | Madeiras | 🪵 | #DEB887 | 4 |
+| 11 | Impermeabilização | 🛡️ | #4682B4 | 4 |
+| 12 | Segurança e EPI | 🦺 | #FF4444 | 5 |
+| 13 | Ferramentas | 🔧 | #555555 | 5 |
+| 14 | Cobertura e Telhas | 🏡 | #CC7722 | 5 |
+| 15 | Jardim e Área Externa | 🌿 | #2E8B57 | 5 |
+| 16 | Utilidades e Consumíveis | 📦 | #9370DB | 4 |
+
+**Total: 16 categorias | 74 subcategorias**

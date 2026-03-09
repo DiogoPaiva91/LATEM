@@ -1,0 +1,76 @@
+# Prompt para Replit Agent — Ajustar Cards Categoria e Subcategoria
+
+> Cole este prompt no Replit Agent
+
+---
+
+```
+Preciso de 2 ajustes na tela "Categorias" do sistema. Manter tudo que já existe (sidebar, header, filtros, botões) — só ajustar o que descrevo abaixo.
+
+## AJUSTE 1 — Cards de Categoria: Grid Responsivo
+
+Os cards de categoria estão fixos em 2 colunas. Preciso que o grid seja RESPONSIVO e ocupe melhor a tela:
+
+- Mobile (< 768px): 1 coluna
+- Tablet (768px - 1024px): 2 colunas
+- Desktop (1024px - 1440px): 3 colunas
+- Desktop grande (> 1440px): 4 colunas
+
+Usar CSS grid com:
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+
+Isso vai fazer os cards se ajustarem automaticamente. O layout horizontal de cada card (ícone + nome + info + menu) continua igual, só muda a quantidade de colunas.
+
+## AJUSTE 2 — Cards de Subcategoria: Mostrar ícone e nome da categoria pai
+
+Os cards de subcategoria estão assim (RUIM):
+┌──────────────────────────────────────────┐
+│  Cimentos              30 produtos   ⋯   │
+│                           ● Ativa        │
+└──────────────────────────────────────────┘
+Problemas: sem ícone, sem informação de qual categoria pertence.
+
+Devem ficar assim (BOM):
+┌──────────────────────────────────────────┐
+│  🧱  Cimentos            30 produtos ⋯  │
+│      Cimentos e Argamassas   ● Ativa     │
+└──────────────────────────────────────────┘
+
+Mudanças específicas no card de subcategoria:
+
+1. **Adicionar ícone da categoria pai** à esquerda do nome
+   - Buscar o ícone da categoria pai (parent) e exibir como emoji 36px
+   - A subcategoria herda o ícone da sua categoria pai
+   - Mesmo estilo que os cards de categoria (emoji direto, sem fundo)
+
+2. **Mostrar nome da categoria pai** abaixo do nome da subcategoria
+   - Onde hoje está vazio, exibir o nome da categoria pai
+   - Estilo: font-size 11px, color #999 (cinza claro)
+   - Exemplo: se a subcategoria "Cimentos" pertence a "Cimentos e Argamassas", mostrar:
+     Linha 1 (bold): Cimentos
+     Linha 2 (cinza): Cimentos e Argamassas
+
+3. **Mesmo grid responsivo** das categorias:
+   - grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+   - 1 a 4 colunas dependendo da tela
+
+## COMO BUSCAR OS DADOS DA CATEGORIA PAI
+
+No banco de dados, a subcategoria tem um campo parent_id que referencia a categoria pai. Ao carregar as subcategorias, fazer JOIN ou lookup para trazer:
+- parent.name (nome da categoria pai)
+- parent.icon (ícone/emoji da categoria pai)
+
+E exibir esses dados no card conforme descrito acima.
+
+## RESUMO VISUAL
+
+Card CATEGORIA (já está bom, só ajustar grid):
+🧱  Cimentos e Argamassas      120 produtos • 4 sub     ⋯
+    cimentos-e-argamassas            ● Ativa
+
+Card SUBCATEGORIA (corrigir — adicionar ícone + categoria pai):
+🧱  Cimentos                    30 produtos              ⋯
+    Cimentos e Argamassas            ● Ativa
+
+Ambos com grid responsivo: repeat(auto-fill, minmax(280px, 1fr))
+```

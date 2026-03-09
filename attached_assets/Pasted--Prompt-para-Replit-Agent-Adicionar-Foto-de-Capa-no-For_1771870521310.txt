@@ -1,0 +1,80 @@
+# Prompt para Replit Agent — Adicionar Foto de Capa no Formulário de Categoria
+
+> Cole este prompt no Replit Agent
+
+---
+
+```
+No formulário de cadastro/edição de Categoria ("Nova Categoria"), adicionar um campo para upload de FOTO DE CAPA. Essa foto já é usada na home do site para exibir as categorias com imagem. Preciso que o admin consiga cadastrar e trocar essa foto pelo formulário.
+
+## CAMPO NOVO: Foto de Capa
+
+Posicionar DEPOIS do campo de ícone e ANTES da descrição.
+
+### Visual do campo:
+
+Label: "Foto de Capa"
+Texto auxiliar: "Imagem exibida na vitrine da loja e página da categoria. Recomendado: 600×400px"
+
+Quando SEM imagem:
+┌─────────────────────────────────────────────┐
+│                                             │
+│           📷  Arraste uma imagem            │
+│        ou clique para selecionar            │
+│                                             │
+│         JPG, PNG ou WebP • Máx 2MB          │
+└─────────────────────────────────────────────┘
+- Área tracejada (border: 2px dashed #ddd), border-radius 12px
+- Altura: 180px
+- Fundo: #fafafa
+- Aceitar drag & drop e clique
+- Hover: borda fica azul escuro (cor primária do sistema)
+
+Quando COM imagem:
+┌─────────────────────────────────────────────┐
+│                                             │
+│          [PREVIEW DA IMAGEM]                │
+│          cobrindo toda a área               │
+│                                             │
+│    [🗑️ Remover]        [📷 Trocar]         │
+└─────────────────────────────────────────────┘
+- Preview da imagem com object-fit: cover, mesma área 180px
+- Border-radius 12px
+- Dois botões sobrepostos no rodapé da imagem:
+  - "Remover" (ícone lixeira, fundo vermelho semitransparente, texto branco)
+  - "Trocar" (ícone câmera, fundo preto semitransparente, texto branco)
+- Botões só aparecem no hover da imagem
+
+### Validações:
+- Formatos aceitos: JPG, PNG, WebP
+- Tamanho máximo: 2MB
+- Se arquivo inválido: toast de erro "Formato não suportado. Use JPG, PNG ou WebP."
+- Se arquivo muito grande: toast de erro "Imagem muito grande. Máximo 2MB."
+
+### Armazenamento:
+- Upload via Supabase Storage no bucket "category-images"
+- Salvar a URL pública no campo image_url da tabela categories
+- Se a coluna image_url não existir na tabela, criar com: ALTER TABLE categories ADD COLUMN image_url TEXT;
+- Ao remover imagem: deletar do Supabase Storage e setar image_url como NULL
+
+### Preview em tempo real:
+- O preview do card no topo do formulário deve atualizar mostrando a imagem quando enviada
+- Se tiver imagem: mostrar a foto como fundo do preview (estilo da home)
+- Se não tiver imagem: mostrar o ícone/emoji como fallback (comportamento atual)
+
+### Atualizar a Home:
+- Na seção de categorias da home, buscar o campo image_url de cada categoria
+- Se image_url existir: exibir a foto (como já está funcionando)
+- Se image_url for NULL: exibir fallback com fundo cinza claro + emoji grande da categoria no centro
+- Isso garante que categorias sem foto não fiquem quebradas na home
+
+### Campo OPCIONAL:
+- A foto de capa NÃO é obrigatória
+- Categoria funciona normalmente sem foto (usa emoji como fallback)
+- No card do admin, se tiver foto, mostrar thumbnail pequeno (40x40 arredondado) no lugar do emoji
+
+## NÃO MUDAR MAIS NADA
+- Manter todos os outros campos do formulário iguais
+- Manter layout, cores, sidebar, header
+- Só adicionar este campo novo
+```

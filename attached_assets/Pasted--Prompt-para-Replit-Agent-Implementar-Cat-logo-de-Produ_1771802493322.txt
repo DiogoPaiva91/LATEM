@@ -1,0 +1,107 @@
+# Prompt para Replit Agent — Implementar Catálogo de Produtos
+
+> Cole este prompt no Replit Agent para implementar a tela "Catálogo de Produtos"
+
+---
+
+```
+Na página "Catálogo de Produtos" que já existe no sistema (a tela que tem o empty state com o botão "+ Cadastrar Produto"), implemente a funcionalidade completa. Mantenha o layout atual do sistema (sidebar à esquerda com ícones, header com título "Catálogo de Produtos" e subtítulo "Controle de estoque e preços", botão "Exportar" no canto superior direito).
+
+## 1. LISTAGEM DE PRODUTOS (quando existirem produtos cadastrados)
+
+Substituir o empty state por uma tabela/grid com:
+
+- Barra de ações no topo:
+  - Campo de busca (filtrar por nome ou SKU)
+  - Filtro por categoria (dropdown)
+  - Filtro por status: Todos | Ativos | Inativos
+  - Botão "+ Cadastrar Produto" (azul escuro, igual ao que já existe)
+
+- Tabela de produtos com colunas:
+  - Imagem (thumbnail 48x48, arredondado)
+  - Nome do Produto + SKU abaixo em texto menor cinza
+  - Categoria (com ícone/emoji)
+  - Embalagem (badge: "Fardo c/ 6 un.", "Caixa c/ 12 un.", etc.)
+  - Preço Unitário (formato: R$ 7,63)
+  - Estoque (número + barra de progresso visual, vermelho se abaixo do mínimo)
+  - Status (badge: verde "Ativo" ou cinza "Inativo")
+  - Ações: botões ícone de Editar e Excluir
+
+- Paginação no rodapé da tabela
+- Se nenhum produto cadastrado, manter o empty state atual
+
+## 2. FORMULÁRIO DE CADASTRO DE PRODUTO (modal ou página nova)
+
+Ao clicar em "+ Cadastrar Produto", abrir formulário com as seguintes seções:
+
+### Seção: Informações Básicas
+- Nome do Produto (texto, obrigatório, placeholder: "Ex: Cimento Cola Indeflex AC1 CZ 05K")
+- SKU / Código (texto, obrigatório, único, placeholder: "Ex: 423460", com botão "Gerar" que cria código automático)
+- Categoria (dropdown das categorias cadastradas, obrigatório. Se não tiver categorias, mostrar link "Criar categoria primeiro")
+- Descrição Curta (textarea, opcional, máx 200 chars com contador)
+- Imagens (upload múltiplo, drag & drop, preview em grid, primeira = principal)
+
+### Seção: Preço
+- Preço Unitário (input monetário, obrigatório, formato R$ com máscara brasileira: vírgula decimal)
+- Preço Promocional (input monetário, opcional, deve ser menor que unitário)
+- Quando preço promo preenchido, mostrar automaticamente: "Desconto: 15%" e "Economia: R$ 1,14/un"
+- Campo calculado (não editável): "Preço por embalagem: Fardo (6 un.) = R$ 45,78"
+
+### Seção: Embalagem e Quantidade ⚠️ MAIS IMPORTANTE
+- Tipo de Embalagem: seleção visual por cards/chips clicáveis:
+  | Preset            | Qty | Rótulo                |
+  |-------------------|-----|-----------------------|
+  | Unidade           | 1   | Unidade               |
+  | Fardo c/ 6        | 6   | Fardo c/ 6 unidades   |
+  | Caixa c/ 12       | 12  | Caixa c/ 12 unidades  |
+  | Palete c/ 4       | 4   | Palete c/ 4 sacos     |
+  | Caixa c/ 24       | 24  | Caixa c/ 24 peças     |
+  | Caixa c/ 50       | 50  | Caixa c/ 50 peças     |
+  | Personalizado     | —   | (campos manuais)      |
+
+- Ao selecionar preset: preencher automaticamente "Quantidade por Embalagem" e "Rótulo da Embalagem"
+- Quantidade por Embalagem (número inteiro, min 1) — este valor define o incremento do stepper na loja
+- Rótulo da Embalagem (texto, ex: "Fardo c/ 6 unidades") — aparece como badge no card do produto
+- Unidade de Medida (dropdown: un, kg, L, m, m², pç, saco, lata, balde)
+- Qtd. Máxima por Pedido (opcional, deve ser múltiplo da qty embalagem)
+
+- PREVIEW DO INCREMENTO abaixo dos campos:
+  Mostrar sequência visual de badges com os múltiplos: [6] [12] [18] [24] ...
+  Primeiro badge destacado com cor primária do sistema
+  Texto: "O cliente só poderá comprar em múltiplos de 6 unidades"
+
+### Seção: Estoque
+- Toggle "Controlar Estoque" (padrão: sim)
+- Quantidade em Estoque (número, em unidades individuais)
+  - Mostrar cálculo automático: "600 un. = 100 fardos"
+- Estoque Mínimo para Alerta (opcional)
+- Toggle "Permitir venda sem estoque" (padrão: não)
+
+### Seção: Visibilidade
+- Toggle Status Ativo/Inativo (padrão: ativo)
+- Toggle Produto em Destaque (padrão: não)
+- Toggle Badge "Novo" (padrão: sim)
+
+### Botões do formulário:
+- "Cancelar" — volta para listagem
+- "Salvar Produto" — valida campos, salva no banco, toast de sucesso, redireciona para listagem
+
+## 3. CADASTRO DE CATEGORIAS
+
+Se ainda não existe tela de categorias, criar um formulário simples (pode ser modal) acessível pelo menu lateral ou pelo link dentro do formulário de produto:
+
+- Nome da Categoria (texto, obrigatório)
+- Ícone (grid de emojis clicáveis: 🧱 🎨 🔩 🪵 💡 🚿 🪟 🔧 📦 🪣 ⚡ 🏗️)
+- Descrição (textarea, opcional, máx 300 chars)
+- Status ativo/inativo (toggle)
+
+## 4. REGRAS IMPORTANTES
+
+- Manter exatamente o mesmo design system do projeto (cores, fontes, sidebar, espaçamentos)
+- O botão "Exportar" no header deve exportar a listagem de produtos em CSV
+- Formulário com validação em todos os campos obrigatórios
+- Feedback visual: toast/notificação de sucesso e erro
+- Responsivo: tabela vira cards em mobile
+- Manter a navegação da sidebar funcionando
+- Salvar tudo no banco de dados que já está configurado no projeto
+```
